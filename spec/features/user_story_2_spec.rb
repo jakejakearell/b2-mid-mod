@@ -8,7 +8,6 @@ RSpec.describe "As a visitor" do
     @small_world = Ride.create!(name: "small world", thrill_rating: 10, open: true)
     @death_drop = Ride.create!(name: "death drop", thrill_rating: 10, open: false)
 
-
     RideMechanic.create!(ride: @fast_furious, mechanic: @mike)
     RideMechanic.create!(ride: @small_world, mechanic: @mike)
     RideMechanic.create!(ride: @death_drop, mechanic: @mike)
@@ -20,16 +19,20 @@ RSpec.describe "As a visitor" do
 
       visit "/mechanics/#{@mike.id}"
 
-      expect(page).to have_content("All Mechanics")
-
-      expect(page).to have_content("#{@fred.name}")
-      expect(page).to have_content("#{@fred.years_of_experience}")
-
-      expect(page).to have_content("#{@doug.name}")
-      expect(page).to have_content("#{@doug.years_of_experience}")
 
 
-      expect(page).to have_content("Average years of experience: 8")
+      expect(page).to have_content("#{@mike.name}")
+      expect(page).to have_content("#{@mike.years_of_experience}")
+
+      within "#ride-1" do
+        expect(page).to have_content("#{@small_world.name}")
+      end
+
+      within "#ride-2" do
+        expect(page).to have_content("#{@fast_furious.name}")
+      end
+
+      expect(page).to have_no_content("#{@death_drop.name}")
 
     end
 

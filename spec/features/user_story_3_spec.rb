@@ -20,6 +20,8 @@ RSpec.describe "As a visitor" do
 
       visit "/mechanics/#{@mike.id}"
 
+      expect(page).to have_no_content("#{@crazy_frog.name}")
+
       fill_in "ride_id", with: "#{@crazy_frog.id}"
 
       click_button 'Submit'
@@ -29,7 +31,6 @@ RSpec.describe "As a visitor" do
       within "#ride-1" do
         expect(page).to have_content("#{@crazy_frog.name}")
       end
-      
     end
   end
 end

@@ -1,0 +1,11 @@
+<% counter = 1 %>
+
+<%= @mechanic.name %>
+<p>Years of experience: <%= @mechanic.years_of_experience %></p>
+
+<% @mechanic.rides.open_and_most_thrilling.each do |ride| %>
+  <div id="ride-<%= counter %>">
+  <%= ride.name %>
+  <% counter += 1 %>
+<% end %>
+</div>

@@ -1,11 +1,20 @@
 <% counter = 1 %>
 
-<%= @mechanic.name %>
-<p>Years of experience: <%= @mechanic.years_of_experience %></p>
+<h3>Mechanic name: <%= @mechanic.name %></h3>
+<h3>Years of experience: <%= @mechanic.years_of_experience %></h3>
 
+<h3>Rides working on:</h3>
 <% @mechanic.rides.open_and_most_thrilling.each do |ride| %>
   <div id="ride-<%= counter %>">
   <%= ride.name %>
   <% counter += 1 %>
 <% end %>
 </div>
+
+<h3>Add a ride</h3>
+<%= form_with url: "/mechanics/:id/new", method: :patch do |form| %>
+  <%= form.label :ride_id, "Ride Id:" %>
+  <%= form.text_field :ride_id %>
+  <%= form.hidden_field :mechanic_id, value: "#{@mechanic.id}" %>
+  <%= form.submit "Submit" %>
+<% end %>
